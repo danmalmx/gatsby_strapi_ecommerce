@@ -29,6 +29,15 @@ module.exports = {
       },
     },
     `gatsby-plugin-gatsby-cloud`,
+
+    {
+      resolve: 'gatsby-source-strapi',
+      options: {
+        apiUrl: 'htp://localhost:1337',
+        queryLimit: 10000,
+        contentType: [],
+      }
+    },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
