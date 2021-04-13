@@ -35,7 +35,7 @@ module.exports = {
       options: {
         apiUrl: 'htp://localhost:1337',
         queryLimit: 10000,
-        contentType: [],
+        contentTypes: ['product'],
       }
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
