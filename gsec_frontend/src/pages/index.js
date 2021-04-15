@@ -15,7 +15,7 @@ const IndexPage = ( {data} ) => (
     <div style={{
       display: 'grid',
       gridTemplateColumns: 'repeat(3, 1fr)',
-      rowGap: '20,'
+      columnGap: '20px'
 
     }}>
       {data.allStrapiProduct.nodes.map((product) => (
