@@ -10,13 +10,25 @@ const IndexPage = ( {data} ) => (
 
   <Layout>
     <SEO title="Home" />
-    {data.allStrapiProduct.nodes.map((product) => (
-      <div>
-      <Img fixed={product.thumbnail.childImageSharp.fixed} />
-      {product.name}
-      </div>
-    ))}
+    <h2>Shop</h2>
+    <div style={{
+      display: 'grid',
+      gridTemplateColumns: 'repeat(3, 1fr)',
+      rowGap: '20,'
 
+    }}>
+      {data.allStrapiProduct.nodes.map((product) => (
+        <div style={{marginBottom: 20}}>
+          <div>
+            <Img fixed={product.thumbnail.childImageSharp.fixed} />
+          </div>
+          <div>
+            <h3 style={{marginBottom: 0}}>{product.name}</h3>
+            {product.price_in_cent}
+          </div>
+        </div>
+      ))}
+    </div>
   </Layout>
 )
 
@@ -34,7 +46,7 @@ export const pageQuery = graphql`
         strapiId,
         thumbnail {
           childImageSharp {
-            fixed(width: 200) {
+            fixed(width: 200, height: 200) {
               ...GatsbyImageSharpFixed
             }
           }
