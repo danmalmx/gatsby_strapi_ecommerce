@@ -1,6 +1,6 @@
 import * as React from "react"
 import {graphql} from "gatsby"
-import { StaticImage, GatsbyImage, getImage } from "gatsby-plugin-image"
+import Img from 'gatsby-image'
 
 
 import Layout from "../components/layout"
@@ -12,8 +12,8 @@ const IndexPage = ( {data} ) => (
     <SEO title="Home" />
     {data.allStrapiProduct.nodes.map((product) => (
       <div>
+      <Img fixed={product.thumbnail.childImageSharp.fixed} />
       {product.name}
-        <StaticImage src={product.thumbnail.childImageSharp.fixed} />
       </div>
     ))}
 
@@ -34,7 +34,7 @@ export const pageQuery = graphql`
         strapiId,
         thumbnail {
           childImageSharp {
-            gatsbyImageData(width: 200) {
+            fixed(width: 200) {
               ...GatsbyImageSharpFixed
             }
           }
