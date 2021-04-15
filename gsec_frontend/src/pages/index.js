@@ -5,6 +5,7 @@ import Img from 'gatsby-image'
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import {formatPrice} from '../utils/format'
 
 const IndexPage = ( {data} ) => (
 
@@ -24,7 +25,7 @@ const IndexPage = ( {data} ) => (
           </div>
           <div>
             <h3 style={{marginBottom: 0}}>{product.name}</h3>
-            {product.price_in_cent}
+            {formatPrice(product.price_in_cent)}
           </div>
         </div>
       ))}
