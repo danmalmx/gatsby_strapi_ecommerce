@@ -1,11 +1,12 @@
 import * as React from "react"
-import {graphql} from "gatsby"
 import Img from 'gatsby-image'
+import { Link, graphql } from "gatsby"
 
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import {formatPrice} from '../utils/format'
+import { fromproductSlugTourl } from '../utils/products'
 
 const IndexPage = ( {data} ) => (
 
@@ -19,15 +20,23 @@ const IndexPage = ( {data} ) => (
 
     }}>
       {data.allStrapiProduct.nodes.map((product) => (
-        <div style={{marginBottom: 20}}>
-          <div>
-            <Img fixed={product.thumbnail.childImageSharp.fixed} />
+        <Link
+          style={{
+            color: '#000000',
+            textDecoration: 'none',
+          }}
+          to={fromproductSlugTourl(product.name)}
+        >
+          <div style={{marginBottom: 20}}>
+            <div>
+              <Img fixed={product.thumbnail.childImageSharp.fixed} />
+            </div>
+            <div>
+              <h3 style={{marginBottom: 0}}>{product.name}</h3>
+              {formatPrice(product.price_in_cent)}
+            </div>
           </div>
-          <div>
-            <h3 style={{marginBottom: 0}}>{product.name}</h3>
-            {formatPrice(product.price_in_cent)}
-          </div>
-        </div>
+        </Link>
       ))}
     </div>
   </Layout>
