@@ -25,7 +25,7 @@ const IndexPage = ( {data} ) => (
             color: '#000000',
             textDecoration: 'none',
           }}
-          to={fromproductSlugTourl(product.name)}
+          to={fromproductSlugTourl(product.slug)}
         >
           <div style={{marginBottom: 20}}>
             <div>
@@ -53,7 +53,8 @@ export const pageQuery = graphql`
         created_at
         name
         price_in_cent
-        strapiId,
+        strapiId
+        slug
         thumbnail {
           childImageSharp {
             fixed(width: 200, height: 200) {
