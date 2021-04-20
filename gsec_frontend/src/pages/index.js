@@ -26,8 +26,9 @@ const IndexPage = ( {data} ) => (
             textDecoration: 'none',
           }}
           to={fromproductSlugTourl(product.slug)}
+          key={product.id}
         >
-          <div style={{marginBottom: 20}}>
+          <div style={{marginBottom: 20}} >
             <div>
               <Img fixed={product.thumbnail.childImageSharp.fixed} />
             </div>
