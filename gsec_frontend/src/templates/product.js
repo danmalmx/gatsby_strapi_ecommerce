@@ -15,17 +15,17 @@ export default ProductTemplate
 
 export const query = graphql`
   query ProductTemplateQuery($id: String!) {
-    strapiProduct(id: {eq: $id}) {
-      name
-      price_in_cent
-      description
-      thumbnail {
-        childImageSharp {
-          fixed(width: 640) {
-            ...GatsbyImageSharpFixed
+      strapiProduct(id: {eq: $id}) {
+        name
+        price_in_cent
+        description
+        thumbnail {
+          childImageSharp {
+            fixed(width: 640) {
+              ...GatsbyImageSharpFixed
+            }
           }
         }
       }
     }
-  }
 `

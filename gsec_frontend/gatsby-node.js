@@ -11,7 +11,7 @@ const path = require('path');
 const makeRequest = (graphql, request) => new Promise((resolve, reject) => {
   resolve(
     graphql(request).then(result => {
-      if(result.errors) {
+      if (result.errors) {
         reject(result.errors)
       }
 
@@ -20,7 +20,7 @@ const makeRequest = (graphql, request) => new Promise((resolve, reject) => {
   );
 });
 
-exports.createPages = ({actions, graphql}) => {
+exports.createPages = ({ actions, graphql }) => {
   const { createPage } = actions;
 
   const allProducts = makeRequest(graphql, `
@@ -35,7 +35,7 @@ exports.createPages = ({actions, graphql}) => {
       }
     }
   `).then(result => {
-    result.data.allStrapiProduct.edges.forEach(({node}) => {
+    result.data.allStrapiProduct.edges.forEach(({ node }) => {
       createPage({
         path: `/products/${node.slug}`,
         component: path.resolve(`src/templates/product.js`),
