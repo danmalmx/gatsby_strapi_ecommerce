@@ -8,7 +8,7 @@
 
 const path = require('path');
 
-const makeRequest = (graphql, request) => new Promise((resolve, reject) => {
+const generateProductPages = (graphql, request) => new Promise((resolve, reject) => {
   resolve(
     graphql(request).then(result => {
       if (result.errors) {
@@ -46,5 +46,5 @@ exports.createPages = ({ actions, graphql }) => {
     });
   });
 
-  return Promise.all([allProducts])
+  return Promise.all([generateProductPages])
 }
