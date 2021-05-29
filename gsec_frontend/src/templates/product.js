@@ -21,6 +21,7 @@ export default ProductTemplate
 export const query = graphql`
   query ProductTemplateQuery($id: String!) {
       strapiProduct(id: {eq: $id}) {
+        strapiId
         name
         price_in_cent
         description
