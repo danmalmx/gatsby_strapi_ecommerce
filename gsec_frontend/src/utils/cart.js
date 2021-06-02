@@ -1,5 +1,7 @@
 
-export const TAX_RATE = process.env.TAX_RATE || 0.1
+export const TAX_RATE = process.env.TAX_RATE || 0.1;
+export const FREE_SHIPPING_THRESHOLD = process.env.FREE_SHIPPING_THRESHOLD || 10000;
+export const SHIPPING_RATE = process.env.SHIPPING_RATE || 500;
 
 
 export const setCart = (cart) => {
@@ -49,9 +51,16 @@ export const cartSubTotal = (cart) => {
   return subTotal
 }
 
+export const shouldPayShippign = (cart) => {
+  const subTotal = cartSubTotal(cart);
+
+  return subTotal < FREE_SHIPPING_THRESHOLD;
+}
+
 export const cartTotal = (cart) => {
   const subTotal = cartSubTotal(cart);
-  const total = subTotal + subTotal * TAX_RATE;
+  const shipping = shouldPayShippign(cart) ? SHIPPING_RATE : 0;
+  const total = subTotal + subTotal * TAX_RATE + shipping;
 
   return Math.round(total);
 }

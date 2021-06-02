@@ -7,7 +7,10 @@ import {
   getCart,
   addToCart,
   cartSubTotal,
-  cartTotal
+  cartTotal,
+  shouldPayShippign,
+  SHIPPING_RATE,
+  TAX_RATE
 }
   from '../utils/cart';
 import { formatPrice } from "../utils/format";
@@ -58,6 +61,13 @@ export default () => {
         </tbody>
       </table>
       <h3>Subtotal: {formatPrice(cartSubTotal(cart))}</h3>
+      <h3>VAT: {formatPrice(cartSubTotal(cart) * TAX_RATE)}</h3>
+      {shouldPayShippign(cart) &&
+        <h3>Shipping: {formatPrice(SHIPPING_RATE)}</h3>
+      }
+      {!shouldPayShippign(cart) &&
+        <h3>Shipping is free</h3>
+      }
       <h3>Total: {formatPrice(cartTotal(cart))}</h3>
     </Layout>
   )
