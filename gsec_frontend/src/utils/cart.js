@@ -14,7 +14,7 @@ export const getCart = () => {
   }
 }
 
-export const addToCart = (product) => {
+export const addToCart = (product, qty = 1) => {
   const cart = getCart();
 
   const indexOfProduct = cart.findIndex((alreadyInCart) =>
@@ -22,13 +22,28 @@ export const addToCart = (product) => {
 
   if (indexOfProduct !== -1) {
 
-    cart[indexOfProduct].qty += 1;
+    cart[indexOfProduct].qty += qty;
+
+    if (cart[indexOfProduct].qty === 0) {
+      cart.splice(indexOfProduct, 1)
+    }
   } else {
-    product.qty = 1;
+    product.qty = qty;
 
     cart.push(product);
 
   }
 
   setCart(cart)
+}
+
+export const updateProductQuantity = (product, quantity) => {
+  const cart = getCart();
+
+  const indexOfProduct = cart.findIndex((alreadyInCart) =>
+    alreadyInCart.strapiId === product.strapiId);
+
+  if (indexOfProduct) {
+
+  }
 }

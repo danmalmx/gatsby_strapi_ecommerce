@@ -3,7 +3,7 @@ import SEO from "../components/seo"
 import Img from "gatsby-image";
 import Layout from '../components/layout';
 
-import { getCart } from '../utils/cart'
+import { getCart, addToCart } from '../utils/cart'
 import { formatPrice } from "../utils/format";
 
 export default () => {
@@ -34,8 +34,10 @@ export default () => {
               <td>
                 {formatPrice(product.price_in_cent)}
               </td>
-              <td>
+              <td style={{ textAlign: 'center' }}>
+                <span onClick={() => addToCart(product, -1)}>-</span>
                 {product.qty}
+                <span onClick={() => addToCart(product, 1)}>+</span>
               </td>
             </tr>
           ))}
