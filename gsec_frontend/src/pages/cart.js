@@ -12,15 +12,35 @@ export default () => {
     <Layout>
 
       <SEO title="Cart" />
-      <div>
-        {cart.map(product => (
-          <div>
-            <Img fixed={product.thumbnail.childImageSharp.fixed} />
-            <h3>{product.name}</h3>
-            <p>{formatPrice(product.price_in_cent)}</p>
-          </div>
-        ))}
-      </div>
+      <h2>Cart</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          {cart.map(product => (
+            <tr>
+              <td>
+                <Img
+                  fixed={product.thumbnail.childImageSharp.fixed}
+                  style={{ width: '100px', height: '100px', verticalAlign: 'middle' }}
+                />
+                <span style={{ marginLeft: '14px' }}>{product.name}</span>
+              </td>
+              <td>
+                {formatPrice(product.price_in_cent)}
+              </td>
+              <td>
+                {product.qty}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </Layout>
   )
 }
