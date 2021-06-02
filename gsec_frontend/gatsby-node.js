@@ -23,7 +23,7 @@ const generateProductPages = (graphql, request) => new Promise((resolve, reject)
 exports.createPages = ({ actions, graphql }) => {
   const { createPage } = actions;
 
-  const allProducts = makeRequest(graphql, `
+  const allProducts = generateProductPages(graphql, `
     {
       allStrapiProduct {
         edges {
@@ -46,5 +46,5 @@ exports.createPages = ({ actions, graphql }) => {
     });
   });
 
-  return Promise.all([generateProductPages])
+  return Promise.all([allProducts])
 }
