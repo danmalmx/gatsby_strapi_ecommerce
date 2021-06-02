@@ -1,13 +1,21 @@
-import React from 'react'
+import React, { useState, useCallback } from 'react'
 import SEO from "../components/seo"
 import Img from "gatsby-image";
 import Layout from '../components/layout';
 
-import { getCart, addToCart } from '../utils/cart'
+import {
+  getCart,
+  addToCart,
+  cartSubTotal,
+  cartTotal
+}
+  from '../utils/cart';
 import { formatPrice } from "../utils/format";
 
 export default () => {
   const cart = getCart();
+  const [, updateState] = useState();
+  const forceUpdate = useCallback(() => updateState({}), [])
   return (
     <Layout>
 
@@ -35,14 +43,22 @@ export default () => {
                 {formatPrice(product.price_in_cent)}
               </td>
               <td style={{ textAlign: 'center' }}>
-                <span onClick={() => addToCart(product, -1)}>-</span>
+                <span onClick={() => {
+                  addToCart(product, -1)
+                  forceUpdate();
+                }}>-</span>
                 {product.qty}
-                <span onClick={() => addToCart(product, 1)}>+</span>
+                <span onClick={() => {
+                  addToCart(product, 1)
+                  forceUpdate();
+                }}>+</span>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <h3>Subtotal: {formatPrice(cartSubTotal(cart))}</h3>
+      <h3>Total: {formatPrice(cartTotal(cart))}</h3>
     </Layout>
   )
 }

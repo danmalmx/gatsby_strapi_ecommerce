@@ -1,3 +1,7 @@
+
+export const TAX_RATE = process.env.TAX_RATE || 0.1
+
+
 export const setCart = (cart) => {
   localStorage.setItem('cart', JSON.stringify(cart));
 }
@@ -22,13 +26,13 @@ export const addToCart = (product, qty = 1) => {
 
   if (indexOfProduct !== -1) {
 
-    cart[indexOfProduct].qty += qty;
+    cart[indexOfProduct].qty += parseInt(qty);
 
-    if (cart[indexOfProduct].qty === 0) {
+    if (cart[indexOfProduct].qty <= 0) {
       cart.splice(indexOfProduct, 1)
     }
   } else {
-    product.qty = qty;
+    product.qty = parseInt(qty);
 
     cart.push(product);
 
@@ -37,13 +41,17 @@ export const addToCart = (product, qty = 1) => {
   setCart(cart)
 }
 
-export const updateProductQuantity = (product, quantity) => {
-  const cart = getCart();
+export const cartSubTotal = (cart) => {
+  const subTotal = cart.reduce((counter, product) => {
+    return counter + product.price_in_cent * product.qty
+  }, 0);
 
-  const indexOfProduct = cart.findIndex((alreadyInCart) =>
-    alreadyInCart.strapiId === product.strapiId);
+  return subTotal
+}
 
-  if (indexOfProduct) {
+export const cartTotal = (cart) => {
+  const subTotal = cartSubTotal(cart);
+  const total = subTotal + subTotal * TAX_RATE;
 
-  }
+  return Math.round(total);
 }
