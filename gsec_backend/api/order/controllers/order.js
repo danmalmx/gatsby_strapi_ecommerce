@@ -37,6 +37,10 @@ module.exports = {
     }));
     console.log('validadedCart', validadedCart)
 
+    total = strapi.config.functions.cart.cartTotal(validadedCart);
+
+    console.log('total', total);
+
     try {
       const paymentIntent = await stripe.paymentIntents.create({
         amount: total,

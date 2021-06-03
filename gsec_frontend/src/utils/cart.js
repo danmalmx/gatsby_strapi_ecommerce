@@ -1,4 +1,3 @@
-
 export const TAX_RATE = process.env.TAX_RATE || 0.1;
 export const FREE_SHIPPING_THRESHOLD = process.env.FREE_SHIPPING_THRESHOLD || 10000;
 export const SHIPPING_RATE = process.env.SHIPPING_RATE || 500;
