@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react'
-import SEO from "../components/seo"
-import Img from "gatsby-image";
+import SEO from '../components/seo'
+import Img from 'gatsby-image';
 import Layout from '../components/layout';
 import Checkout from '../components/Checkout'
 
@@ -14,7 +14,7 @@ import {
   TAX_RATE
 }
   from '../utils/cart';
-import { formatPrice } from "../utils/format";
+import { formatPrice } from '../utils/format';
 
 export default () => {
   const cart = getCart();

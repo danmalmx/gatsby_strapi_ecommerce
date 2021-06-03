@@ -1,19 +1,57 @@
-import React from 'react'
-import { useStripe, useElement, CardElement } from '@stripe/react-stripe-js';
+import React, { useEffect, useState } from 'react'
+import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 
 export default () => {
   const stripe = useStripe();
-  // const elements = useElement();
+  const elements = useElements();
+  const [token, setToken] = useState(null);
+  const [total, setTotal] = useState('loading');
 
   const handleSubmit = (event) => {
+
+
     console.log('HandleSubmit', event);
   }
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <CardElement />
-      <button disabled={!stripe}>Buy it</button>
-    </form>
-  )
+  useEffect(() => {
+    const loadToken = async () => {
+      const response = await fetch('http://localhost:1337/orders/payment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          cart: [
+            { "id": 1, "qty": 1 },
+            { "id": 2, "qty": 3 }
+          ]
+        })
+      })
+      const data = await response.json()
+
+      console.log('loadToken data', data);
+
+      setToken(data.client_secret)
+      setToken(data.amount);
+    }
+
+    loadToken();
+  })
+
+  if (token) {
+    return (
+      <div>
+        <h3>Total: {total}</h3>
+        <form onSubmit={handleSubmit}>
+          <CardElement />
+          <button disabled={!stripe}>Buy it</button>
+        </form>
+      </div>
+    )
+  } else {
+    return (
+      <p>loading...</p>
+    )
+  }
 
 }
