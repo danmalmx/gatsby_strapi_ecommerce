@@ -11,6 +11,8 @@
   },
   "devDependencies": {},
   "dependencies": {
+    "@stripe/react-stripe-js": "^1.4.1",
+    "@stripe/stripe-js": "^1.15.0",
     "knex": "0.21.18",
     "sqlite3": "5.0.0",
     "strapi": "3.5.4",

@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react'
 import SEO from "../components/seo"
 import Img from "gatsby-image";
 import Layout from '../components/layout';
+import Checkout from '../components/Checkout'
 
 import {
   getCart,
@@ -19,6 +20,8 @@ export default () => {
   const cart = getCart();
   const [, updateState] = useState();
   const forceUpdate = useCallback(() => updateState({}), [])
+  const [showCheckout, setShowCheckout] = useState(false)
+
   return (
     <Layout>
 
@@ -69,6 +72,18 @@ export default () => {
         <h3>Shipping is free</h3>
       }
       <h3>Total: {formatPrice(cartTotal(cart))}</h3>
+      <div>
+        {cart && cart.length > 0 &&
+          <button
+            onClick={() => setShowCheckout(true)}
+            style={{ fontSize: '24x', padding: '12x 24px' }}
+          >
+            Initiate Checkout
+          </button>}
+      </div>
+      {showCheckout &&
+        <Checkout />
+      }
     </Layout>
   )
 }
