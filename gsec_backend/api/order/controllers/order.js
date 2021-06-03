@@ -12,14 +12,18 @@ module.exports = {
     let total = 0;
     let cart = []
 
+    try {
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: total,
+        currency: 'eur',
+        // Verify your integration in this guide by including this parameter
+        metadata: { cart: JSON.stringify(cart) },
+      });
 
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: 1099,
-      currency: 'eur',
-      // Verify your integration in this guide by including this parameter
-      metadata: { cart: JSON.stringify(cart) },
-    });
+      return paymentIntent;
 
-    return paymentIntent;
+    } catch (error) {
+      return { error: error.raw.message }
+    }
   }
 };
