@@ -15,9 +15,11 @@ export default ({ cart }) => {
   const elements = useElements();
   const [token, setToken] = useState(null);
   const [total, setTotal] = useState('loading');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
     console.log('HandleSubmit', event);
     const result = await stripe.confirmCardPayment(token, {
       payment_method: {
@@ -25,11 +27,13 @@ export default ({ cart }) => {
       }
     })
     console.log('handleSubmit result', result);
+    setLoading(false);
 
   }
 
   useEffect(() => {
     const loadToken = async () => {
+      setLoading(true);
       const response = await fetch('http://localhost:1337/orders/payment', {
         method: 'POST',
         headers: {
@@ -47,28 +51,28 @@ export default ({ cart }) => {
 
       setToken(data.client_secret)
       setTotal(data.amount);
+      setLoading(false);
     }
 
     loadToken();
   }, [cart])
 
-  if (token) {
-    return (
-      <div style={{ margin: '24px 0' }}>
-        <h3>Total: {formatPrice(total)}</h3>
-        <form
-          onSubmit={handleSubmit}
 
-        >
-          <CardElement options={CARD_STYLES} />
-          <button disabled={!stripe}>Buy it</button>
-        </form>
-      </div>
-    )
-  } else {
-    return (
-      <p>loading...</p>
-    )
-  }
+  return (
+    <div style={{ margin: '24px 0' }}>
+      {!loading && <h3>Total: {formatPrice(total)}</h3>}
+      {loading && <h3>loading...</h3>}
+      <form
+        onSubmit={handleSubmit}
+
+      >
+        <CardElement options={CARD_STYLES} />
+        <button
+          style={{ marginTop: '12px' }}
+          disabled={!stripe}
+        >Buy it</button>
+      </form>
+    </div>
+  )
 
 }
