@@ -10,7 +10,6 @@ export const setCart = (cart) => {
 export const getCart = () => {
   try {
     const cart = JSON.parse(localStorage.getItem('cart'));
-    console.log('cart', typeof cart);
     return cart ? cart : [];
 
   } catch (error) {

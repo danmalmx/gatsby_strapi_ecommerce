@@ -6,10 +6,10 @@ import CheckoutForm from "./CheckoutForm";
 
 const stripe = loadStripe('pk_test_51Ixw88AGzBGboXkXDxsU9pewZM84jojVcrocs572j1MLFuaPHiokQjnztTk4dXEGYVJWSd8HIB7N9LSyelr8s5sI00GP6kIdBW');
 
-export default () => (
+export default ({ cart }) => (
   <div>
     <Elements stripe={stripe}>
-      <CheckoutForm />
+      <CheckoutForm cart={cart} />
     </Elements>
   </div>
 )

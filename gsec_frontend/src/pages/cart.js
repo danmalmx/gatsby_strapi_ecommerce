@@ -37,8 +37,8 @@ export default () => {
         </thead>
         <tbody>
           {cart.map(product => (
-            <tr>
-              <td>
+            <tr key={product.id}>
+              <td >
                 <Img
                   fixed={product.thumbnail.childImageSharp.fixed}
                   style={{ width: '100px', height: '100px', verticalAlign: 'middle' }}
@@ -82,7 +82,7 @@ export default () => {
           </button>}
       </div>
       {showCheckout &&
-        <Checkout />
+        <Checkout cart={cart} />
       }
     </Layout>
   )
